@@ -1,0 +1,13 @@
+# Directorios
+target/
+.docker/
+gradle/
+.git/
+.idea/
+.vscode/
+
+# Archivos
+*.iml
+*.log
+*.jar
+*.war

@@ -1,0 +1,89 @@
+version: '3.7'
+services:
+  eureka-server:
+    container_name: eureka-server
+    hostname: eureka-server
+    network_mode: docker_deploy
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: eureka-server:0.0.2
+    deploy:
+      resources:
+        limits:
+          memory: 1024M
+          cpus: '1'
+        reservations:
+          memory: 500M
+      restart_policy:
+        condition: on-failure
+        max_attempts: 2
+    volumes:
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "500m"
+    env_file:
+      - ${ENV_FILE}
+    ports:
+      - 8000:8000
+  eureka-peer-2:
+    container_name: eureka-peer-2
+    hostname: eureka-peer-2
+    network_mode: docker_deploy
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: eureka-server:0.0.2
+    deploy:
+      resources:
+        limits:
+          memory: 1024M
+          cpus: '1'
+        reservations:
+          memory: 500M
+      restart_policy:
+        condition: on-failure
+        max_attempts: 2
+    volumes:
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "500m"
+    env_file:
+      - ${ENV_FILE_PEER_II}
+    ports:
+      - 8001:8001
+  eureka-peer-3:
+    container_name: eureka-peer-3
+    hostname: eureka-peer-3
+    network_mode: docker_deploy
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: eureka-server:0.0.2
+    deploy:
+      resources:
+        limits:
+          memory: 1024M
+          cpus: '1'
+        reservations:
+          memory: 500M
+      restart_policy:
+        condition: on-failure
+        max_attempts: 2
+    volumes:
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "500m"
+    env_file:
+      - ${ENV_FILE_PEER_III}
+    ports:
+      - 8002:8002
